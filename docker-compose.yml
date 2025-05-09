@@ -3,7 +3,7 @@ services:
   web:
     build: .
     volumes:
-      - .:/code         # ← mount into /code, not /src
+      - .:/code
     env_file:
       - .env.local
     ports:
