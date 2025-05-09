@@ -1,24 +1,64 @@
 # 24x7 Home Assessment (FastAPI)
 
-This repository contains the backend service implementation for the 24x7 Home Assessment.
+This repository contains the backend service implementation for the **24x7 Home Assessment**.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
-```
+```plaintext
 .
 ├── routers          # Endpoint definitions
-├── services         # Business logic between routers and repositories
+├── services         # Business logic connecting routers and repositories
 ├── repositories     # Database interaction layer
 ├── utils
-│   ├── logger       # Logfire logger integration
-│   └── dependencies # Common dependency functions for routers
+│   ├── logger       # Logfire integration
+│   └── dependencies # Common dependencies for routers
 └── db
-    └── config.py    # Database (Supabase PostgreSQL) configuration
+    └── config.py    # Supabase (PostgreSQL) configuration
 ```
 
-## Technologies
+---
+
+## 🚀 API Endpoints
+
+### 🔎 Get All Contacts
+
+* **Endpoint**: `GET /contact/get-all-contacts`
+* **Description**: Retrieve all contacts stored in the database.
+
+### 🔍 Get Specific Contact
+
+* **Endpoint**: `GET /contact/{phone_number}`
+* **Description**: Retrieve a specific contact using their phone number.
+
+| Parameter      | Type   | Required | Description             |
+| -------------- | ------ | -------- | ----------------------- |
+| `phone_number` | String | Yes      | Contact's phone number. |
+
+### ➕ Add Contact
+
+* **Endpoint**: `POST /contact/add`
+* **Description**: Add a new contact to the database.
+* **Request Body**:
+
+```json
+{
+  "name": "John Doe",
+  "phone_number": "09555298035",
+  "email": "johndoe@gmail.com"
+}
+```
+
+| Field          | Type   | Required | Description             |
+| -------------- | ------ | -------- | ----------------------- |
+| `name`         | String | Yes      | Name of the contact.    |
+| `phone_number` | String | Yes      | Contact's phone number. |
+| `email`        | String | Yes      | Email of the contact.   |
+
+---
+
+## 🛠️ Technologies
 
 * **Backend**: [FastAPI](https://fastapi.tiangolo.com/) with [Pydantic](https://docs.pydantic.dev/)
 * **Database**: [Supabase (PostgreSQL)](https://supabase.com)
@@ -26,35 +66,30 @@ This repository contains the backend service implementation for the 24x7 Home As
 * **Linting**: [Mypy](https://mypy-lang.org/)
 * **Version Control**: Git & GitHub
 * **Containerization**: Docker & Docker Compose
-* **CORS Support**: Ready for frontend integration
+* **CORS**: Frontend integration ready
 
 ---
 
-## Getting Started
+## 📌 Getting Started
 
-### Clone the Repository
+### 🛎️ Clone Repository
 
 ```bash
 git clone https://github.com/JPhlpL/abodey-home-assessment-fastapi.git
 ```
 
-### Setup Supabase Database
+### 📦 Supabase Database Setup
 
 1. Sign up at [Supabase](https://supabase.com/).
-2. Create a new project.
-3. Retrieve connection parameters:
+2. Create a new project and retrieve connection parameters.
+3. Store these parameters in `.env`.
 
-   * Go to your project and click **Connect**.
-   * Choose between **Direct Connection** or **Session Pooler**.
-   * Store connection details in `.env`.
+### 📑 Database Migration
 
-### Database Migration
+1. Navigate to **SQL Editor** in Supabase.
+2. Paste and execute SQL scripts from `migrations/`.
 
-1. In your Supabase project, navigate to **SQL Editor**.
-2. Copy and paste SQL scripts from the `migrations/` directory.
-3. Execute to set up the database.
-
-### Setup Logfire
+### 📈 Logfire Setup
 
 1. Sign up at [Logfire](https://logfire.us.pydantic.dev/).
 2. Create a new project.
@@ -63,7 +98,6 @@ git clone https://github.com/JPhlpL/abodey-home-assessment-fastapi.git
 ---
 
 ## Environment Variables (`.env.local`)
-
 ```dotenv
 LOGFIRE_TOKEN=<your_logfire_token>
 POSTGRE_DB_CONNECTION_WITH_PASSWORD=<your_supabase_connection_string>
@@ -72,17 +106,17 @@ X_AUTH_API_KEY=<your_auth_api_key>
 
 ---
 
-## Docker Setup
+## 🐳 Docker Setup
 
 Ensure Docker and Docker Compose are installed.
 
-### Build and Run
+### 🛠️ Build and Run
 
 ```bash
 docker-compose up --build
 ```
 
-### Run MyPy Linting
+### ✅ Run MyPy Linting
 
 ```bash
 docker exec -it <container_name> mypy src
@@ -90,25 +124,31 @@ docker exec -it <container_name> mypy src
 
 ---
 
-## Resource Schema
+## 📋 Resource Schema
 
 **Contacts**:
 
-| Field         | Type      | Description                  |
-| ------------- | --------- | ---------------------------- |
-| id            | UUID      | Primary Key                  |
-| name          | String    | User/Owner name              |
-| phone\_number | String    | User phone number            |
-| email         | String    | User email                   |
-| created\_at   | Timestamp | Record creation timestamp    |
-| updated\_at   | Timestamp | Record last update timestamp |
+| Field          | Type      | Description                  |
+| -------------- | --------- | ---------------------------- |
+| `id`           | UUID      | Primary Key                  |
+| `name`         | String    | User/Owner name              |
+| `phone_number` | String    | User phone number            |
+| `email`        | String    | User email                   |
+| `created_at`   | Timestamp | Record creation timestamp    |
+| `updated_at`   | Timestamp | Record last update timestamp |
 
 ---
 
-## Contribution
+## 📦 Postman API Collection
 
-Contributions are welcome. Fork the repository and submit pull requests for review.
+Import the collection API from the `export` directory into your Postman Collection.
 
 ---
 
-© 2025 24x7 Home Assessment by John Philip Lominoque
+## 🤝 Contribution
+
+Contributions are welcome! Fork the repository and submit your pull requests.
+
+---
+
+© 2025 24x7 Home Assessment by **John Philip Lominoque**
