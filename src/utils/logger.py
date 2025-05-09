@@ -1,8 +1,8 @@
 import logging
 import os
 from datetime import datetime
-# import logfire
-# from logfire.integrations.logging import LogfireLoggingHandler
+import logfire
+from logfire.integrations.logging import LogfireLoggingHandler
 from fastapi import FastAPI
 
 # Function to set up the logger
@@ -34,6 +34,22 @@ def setup_logger() -> logging.Logger:
     logging.setLoggerClass(CustomLogger)
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
+    
+    # Add LogfireLoggingHandler if not already added
+    if not any(isinstance(handler, LogfireLoggingHandler) for handler in logger.handlers):
+        logfire_handler = LogfireLoggingHandler()
+        logfire_handler.setLevel(logging.INFO)
+        logfire_format = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        logfire_handler.setFormatter(logfire_format)
+        logger.addHandler(logfire_handler)
+        
     return logger
+
+def setup_logfire(app: FastAPI) -> None:
+    logfire_token = os.environ["LOGFIRE_TOKEN"]
+    logfire.configure(token=logfire_token)
+    logfire.instrument_fastapi(app)
 
 logger = setup_logger()
