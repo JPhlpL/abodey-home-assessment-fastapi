@@ -62,7 +62,7 @@ git clone https://github.com/JPhlpL/abodey-home-assessment-fastapi.git
 
 ---
 
-## Environment Variables (`.env`)
+## Environment Variables (`.env.local`)
 
 ```dotenv
 LOGFIRE_TOKEN=<your_logfire_token>
