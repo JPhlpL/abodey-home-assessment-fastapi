@@ -1,11 +1,8 @@
-from sqlalchemy.orm import Session, selectinload
-from sqlalchemy import update
+from sqlalchemy.orm import Session
 from src.models.models import Contact
 from src.wrappers.dbSessionWrapper import with_db_session
 from src.utils.logger import setup_logger
-from uuid import UUID
-from datetime import datetime, timezone
-from typing import Optional, Any
+from typing import Optional
 
 
 logger = setup_logger()
