@@ -1,11 +1,8 @@
-from sqlalchemy.orm import Session, selectinload
-from sqlalchemy import update
+from sqlalchemy.orm import Session
 from src.models.models import Contact
 from src.wrappers.dbSessionWrapper import with_db_session
 from src.utils.logger import setup_logger
-from uuid import UUID
-from datetime import datetime, timezone
-from typing import Optional, Any
+from typing import Optional
 
 
 logger = setup_logger()
@@ -62,3 +59,20 @@ class ContactRepository:
         except Exception as e:
             logger.error(f"Error getting contact with phone number {phone_number}: {e}")
             raise Exception(f"Error in ContactRepository.get_contact_by_number: {e}")
+    
+    # Retrieve a specific resource
+    @with_db_session
+    def get_contact_by_email(self, email: str, scoped_db: Session) -> Optional[Contact]:
+        try:
+            logger.info(f"Fetching contact with email: {email}")
+            db_contact = scoped_db.query(Contact).filter(Contact.email == email).first()
+
+            if not db_contact:
+              return None
+          
+            logger.info(f"Contact with email: {email} found.")
+            return db_contact
+        
+        except Exception as e:
+            logger.error(f"Error getting contact with phone email {email}: {e}")
+            raise Exception(f"Error in ContactRepository.get_contact_by_email: {e}")

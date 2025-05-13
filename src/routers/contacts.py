@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from src.services.contactService import ContactService
 from src.schemas.schemas import (
@@ -6,10 +6,6 @@ from src.schemas.schemas import (
 )
 from src.utils.logger import setup_logger
 from src.utils.dependencies import valid_auth_token
-# from src.middleware.logging import APIRoute
-import requests
-from uuid import UUID
-from typing import Optional
 
 router = APIRouter(
     prefix="/contact", 
