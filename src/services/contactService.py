@@ -4,9 +4,7 @@ from src.schemas.schemas import (
 )
 from src.models.models import Contact
 from src.utils.logger import setup_logger
-from uuid import UUID
 from fastapi import HTTPException  # Import HTTPException
-from typing import Any, Optional
 
 
 logger = setup_logger()
@@ -21,12 +19,17 @@ class ContactService:
 
     # Create a new resource
     def add_new_contact(self, contact: ContactSchema) -> ContactSchema:
+        # Check if the email already exists in the database
+        existing_contact = self.contact_repository.get_contact_by_email(contact.email)
+        if existing_contact:
+            raise HTTPException(status_code=400, detail="Email already registered.")
+        # Proceed to create the new contact
         try:
             logger.info(f"Creating new contact: {contact.email}")
             db_contact = self.contact_repository.create_contact(contact)
             return db_contact
         except Exception as e:
-            logger.error(f"Error in adding a contract: {e}")
+            logger.error(f"Error in adding a contact: {e}")
             raise Exception(f"Error in ContactService.add_new_contact: {e}")
     
     # List all resources
